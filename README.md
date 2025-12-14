@@ -7,43 +7,43 @@ Our system utilizes a three-tiered structure (Bronze, Silver, Gold) following a 
 
 1. Source Layer (External System)
 Attribute	Detail
-Data Location	Local Directory (Host Machine)
-File Format	CSV Files
-Extraction Technique	File Parsing
-Extraction Model	Pull
-Extraction Method	Full (Always extract the complete file)
-Scope of Concern	Extract Only (No manipulation or cleaning)
+Data Location-	Local Directory (Host Machine),
+File Format	-CSV Files,
+Extraction- Technique	File Parsing,
+Extraction- Model	Pull,
+Extraction Method	-Full (Always extract the complete file),
+Scope of Concern	-Extract Only (No manipulation or cleaning)
 
 2. Bronze Layer (Raw Staging)
 This layer is the immutable staging area. Data is loaded exactly as it appears in the Source, preserving raw lineage. This is essential for auditing and ethical data handling.
 
 Attribute	Detail
-Scope of Concern	Extract & Load Only
-Extraction Technique	File Parsing
-Load Processing	Batch
-Load Method	Truncate and Insert
-Object Type	Table
-Transformations	None (No cleaning, standardization, or derived columns)
+Scope of Concern-	Extract & Load Only,
+Extraction Technique-	File Parsing,
+Load Processing	-Batch,
+Load Method	-Truncate and Insert,
+Object Type-	Table,
+Transformations	-None (No cleaning, standardization, or derived columns)
 
 3. Silver Layer (Cleansed & Conformed)
 The Silver layer is where data quality rules are enforced. Data is cleaned, standardized, and enriched here, making it reliable for internal processes.
 
 Attribute	Detail
-Scope of Concern	Transform & Load Only
-Load Processing	Batch
-Load Method	Truncate and Upsert
-Object Type	Table
-Transformations	Data Cleaning, Data Standardization, Data Normalization, Derived Columns, Data Enrichment
+Scope of Concern- Transform & Load Only
+Load Processing	-Batch
+Load Method	-Truncate and Upsert
+Object Type-	Table
+Transformations-	Data Cleaning, Data Standardization, Data Normalization, Derived Columns, Data Enrichment
 
 4. Gold Layer (Business Consumption)
 The Gold layer is optimized for fast reporting, analytics, and business consumption. Data is restructured into dimensional models that align with business logic.
 
 Attribute	Detail
-Scope of Concern	Transform & Load Only
-Load Processing	Batch
-Load Method	Truncate and Upsert
-Object Type	Table
-Manipulations	Aggregation, Star Schema Modeling, Business Logic Implementation
+Scope of Concern- Transform & Load Only,
+Load Processing-	Batch,
+Load Method-	Truncate and Upsert,
+Object Type	-Table,
+Manipulations	-Aggregation, Star Schema Modeling, Business Logic Implementation
 
 🔖 Data Handling and Naming Conventions
 Adhering to strict naming conventions ensures consistency, code readability, and seamless scaling across all environments.
