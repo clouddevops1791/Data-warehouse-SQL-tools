@@ -1,5 +1,6 @@
 📊 DATA WAREHOUSE ARCHITECTURE  
-TOOLS -SQL SERVER
+TOOLS -SQL SERVER.
+
 🎯 Project Overview
 This repository documents the architecture and pipeline logic for processing raw stock and inventory data from local CSV files into a structured, highly refined format suitable for stakeholder consumption and business intelligence. Our multi-layered approach ensures data integrity, full traceability, and adherence to data wrangling ethics through clearly defined transformation stages.
 
