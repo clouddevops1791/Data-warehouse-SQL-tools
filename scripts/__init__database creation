@@ -1,0 +1,33 @@
+SCRIPT PURPOSE
+--this script should be used cautiously on occassion of certainty or in scenerio where one has a backup---
+
+WARNING
+---It instruct the server to check for the "newly created database" from the system and drop any that alreay exist---
+--then recreate the new database with the 3 layered scheme stated below----
+
+
+--CREATING MASTER DATABASE-
+use master;
+
+--CREATING DATABASE--
+create database Datawarehouse;
+
+--CAUTION-READ WARNING ABOVE----
+---CHECK IF DATABASE ALREADY EXIST--
+IF EXISTS (SELECT 1 FROM sys.databases where name = 'Datawarehouse')
+begin
+	alter database Datawarehouse set SINGLE_USER with rollback immediate;
+	drop database Datawarehouse;
+end;
+GO
+
+--CREATE DATA LAYERS--
+Use Datawarehouse;
+create schema bronze;
+GO
+
+create schema silver;
+GO 
+
+create schema gold;
+GO
