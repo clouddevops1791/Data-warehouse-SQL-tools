@@ -9,8 +9,6 @@ WARNING
 --CREATING MASTER DATABASE-
 use master;
 
---CREATING DATABASE--
-create database Datawarehouse;
 
 --CAUTION-READ WARNING ABOVE----
 ---CHECK IF DATABASE ALREADY EXIST--
@@ -20,6 +18,10 @@ begin
 	drop database Datawarehouse;
 end;
 GO
+
+--CREATING DATABASE--
+create database Datawarehouse;
+
 
 --CREATE DATA LAYERS--
 Use Datawarehouse;
