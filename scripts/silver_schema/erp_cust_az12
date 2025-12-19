@@ -1,0 +1,20 @@
+---data standardisation, normalisation and also drived column----
+---Data cleaning and transformation to ensure consistency and adhere to business logic---
+INSERT INTO SILVER.erp_cust_az12(
+	
+	CID,
+	BDATE,
+	GEN
+)
+select
+substring(CID,4,len(CID)) as CID,
+CASE WHEN BDATE > GETDATE() OR BDATE < '1920-01-01' THEN null
+	else BDATE
+end BDATE,
+
+Case when gen in ('F' , 'FEMALE') then 'Female'
+	 when gen in ('M' , 'MALE') then 'Male'
+	 else 'n/a'
+end GEN
+
+from BRONZE.erp_cust_az12;
