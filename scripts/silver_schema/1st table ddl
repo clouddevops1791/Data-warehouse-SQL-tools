@@ -1,0 +1,33 @@
+---DDL script for first table after data manipulation,standardisation and normalisation of the bronze layer--
+
+insert into  SILVER.crm_cust_info(
+	cst_id	,
+	cst_key	,
+	cst_firstname,
+	cst_lastname ,
+	cst_marital_status	,
+	cst_gndr ,
+	cst_create_date
+)
+select 
+cst_id,
+cst_key,
+trim(cst_firstname) AS FIRSTNAME ,
+trim(cst_lastname) AS LASTNAME,
+case when UPPER(TRIM(cst_marital_status)) = 'S' then 'Single'
+		 when UPPER(TRIM(cst_marital_status ))= 'M' then 'Married'
+		 else 
+		 'n/a'
+end cst_marital_status,
+case when  UPPER(TRIM(cst_gndr )) = 'F' THEN 'Female'
+	 when  UPPER(TRIM(cst_gndr )) = 'M' THEN 'Male'
+	else
+	'n/a'
+end cst_gndr,
+cst_create_date
+from
+(select *,
+row_number() over (partition by cst_id order by cst_create_date desc) as no_
+	
+from BRONZE.crm_cust_info where cst_id is not null)t where no_ = 1 ;
+--having count(*) > 1 or cst_id is null;
