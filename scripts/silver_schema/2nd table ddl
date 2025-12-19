@@ -1,0 +1,33 @@
+--DDL script for 2nd table , after data normalisation ,standardisation and derived column techniques used------
+---ensuring clean and consistent data for the silver table schema-----
+insert into SILVER.crm_prd_info(
+prd_id,
+cat_id,
+prd_key,
+prd_nm,
+prd_cost,
+prd_line,
+prd_start_dt,
+prd_end_dt
+)
+
+select prd_id,
+replace(substring(prd_key,1,5), '-','_') as cat_id,
+		substring(prd_key,7, len(prd_key)) as prd_key,
+prd_nm,
+isnull(prd_cost,0) as prd_cost,
+case when  prd_line = 'R' then 'Road'
+	 when  prd_line = 'S' then 'Sport'
+	 when  prd_line = 'M' then 'Mountain'
+	 when  prd_line = 'T' then 'Touring'
+	 else
+	 'NULL'
+end prod_line,
+prd_start_dt ,
+isnull(dateadd(day, -1, lead(prd_start_dt) over (partition by prd_key order by prd_start_dt)), '9999-01-01') as prd_end_dt
+
+		
+
+from bronze.crm_prd_info
+
+;
