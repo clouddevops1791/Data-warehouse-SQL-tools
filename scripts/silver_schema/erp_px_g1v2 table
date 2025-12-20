@@ -1,0 +1,15 @@
+--this table had very good data quality and consistency after all checks---
+---Only the loading process was involved here-----
+INSERT INTO SILVER.erp_px_cat_g1v2(
+		ID,
+		CAT,
+		SUBCAT,
+		MAINTENANCE
+)
+select
+		ID,
+		CAT,
+		SUBCAT,
+		MAINTENANCE
+
+FROM BRONZE.erp_px_cat_g1v2;
