@@ -1,0 +1,20 @@
+create view GOLD.dim_product as
+select 
+		ROW_NUMBER() over(order by si.prd_start_dt,si.prd_key ) as product_key,
+		si.prd_id as product_id,
+		si.prd_key as product_num,
+		si.prd_nm as   product_name,
+		si.prd_cost as prd_cost,
+		si.prd_line as prd_line,
+		si.cat_id as category_id, 
+		se.CAT as category,
+		se.SUBCAT as subcategory,
+		se.MAINTENANCE,
+		si.prd_start_dt
+	
+
+from SILVER.crm_prd_info si
+LEFT JOIN SILVER.erp_px_cat_g1v2 se
+ON  si.cat_id = se.ID 
+where si.prd_end_dt = '9999-01-01'
+
