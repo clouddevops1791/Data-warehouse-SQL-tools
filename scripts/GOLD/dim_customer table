@@ -1,0 +1,24 @@
+--saving all our gold schema as a virtual table using the view
+create view GOLD.dim_customers as 
+---we created surrogate keys to maintain data consistency incases of unforseen circumstances or conditions changes--
+--to prevent braking the schema and keep historical analysis active on changes related to unique keys---
+select
+	   ROW_NUMBER() over (order by c_i.cst_id) as customer_key,
+	   c_i.cst_id as customer_id,
+	   c_i.cst_key as customer_num,
+	   c_i.cst_firstname as first_name,
+	   c_i.cst_lastname as last_name,
+	   e_l.CNTRY as country,
+	   c_i.cst_marital_status as marital_status,
+	   case when c_i.cst_gndr != 'n/a' then c_i.cst_gndr
+			 else coalesce(e_c.gen, 'n/a')
+	   end as new_gndr,
+	   e_c.BDATE as birthdate ,
+	 
+	   
+	   c_i.cst_create_date as createdate
+		
+		
+from  SILVER.crm_cust_info c_i 
+left join SILVER.erp_cust_az12 e_c ON c_i.cst_key = e_c.CID
+left join SILVER.erp_loc_a101 e_l ON  e_l.CID = e_c.CID;
