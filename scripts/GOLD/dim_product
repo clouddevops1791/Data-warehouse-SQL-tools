@@ -10,11 +10,11 @@ select
 		se.CAT as category,
 		se.SUBCAT as subcategory,
 		se.MAINTENANCE,
-		si.prd_start_dt
+		si.prd_start_dt,
+		si.prd_end_dt
+
 	
 
 from SILVER.crm_prd_info si
 LEFT JOIN SILVER.erp_px_cat_g1v2 se
 ON  si.cat_id = se.ID 
-where si.prd_end_dt = '9999-01-01'
-
