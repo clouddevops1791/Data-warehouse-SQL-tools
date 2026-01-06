@@ -83,4 +83,6 @@ Traceability (Silver): The dwh_ technical columns track processing timestamps an
 
 Transformation Control (Silver/Gold): By restricting cleaning and transformation to the Silver and Gold layers, we ensure that the logic is centralized, documented, and peer-reviewed, mitigating the risk of introducing bias or errors during the wrangling process.
 
+<img width="1441" height="549" alt="data_model" src="https://github.com/user-attachments/assets/e39b7fed-c239-4ace-9b9c-075d7b003222" />
+
 
