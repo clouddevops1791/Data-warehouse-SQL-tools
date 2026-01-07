@@ -1,0 +1,10 @@
+--this was created as dimension table to support and existing dimension table--
+--As joinging created an extra 7430 nulls in new table which wasnt sustainable even when you try---
+  ---data manipulating and enrichment---
+create view GOLD.dim_dim_cust as
+SELECT 
+       [CID]
+      ,[BDATE]
+      ,[GEN]
+     
+  FROM [DATAWAREHOUSING].[SILVER].[erp_cust_az12]
