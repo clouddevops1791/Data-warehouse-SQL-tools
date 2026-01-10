@@ -1,21 +1,21 @@
 --created a fact table using and applying comapanies business intelligence---
 --joined the surrogate keys to create an existing connection between all dimension---
+--Business logic required that we manipulate and enrich order_date for nulls by backdatting it 3 days before the shipment day---
 --tables to the FACT table---
-
+drop view if exists GOLD.fact_sales
 create view GOLD.fact_sales as
 SELECT  [sls_ord_num] as order_num
       ,GD.customer_key
       ,GP.product_key
-      ,[sls_order_dt] as order_dt
+       ,sls_quantity as sales_qty
+       ,sls_price as sales_price
+      ,(Ss.sls_quantity * GP.[prd_cost])  as Productioncost
+      ,sls_sales as   sales_amnt
+       ,case when Ss.sls_order_dt IS NULL then DATEADD( day, -3 , Ss.sls_ship_dt)
+        else Ss.sls_order_dt
+       end  as order_dt
+
       ,[sls_ship_dt] as ship_dt
       ,[sls_due_dt] as  due_dt
-      ,sls_sales as   sales_amnt
-      ,sls_quantity as sales_qty
-      ,sls_price as sales_price
-    
-  FROM SILVER.crm_sales_details Ss left join
-  GOLD.dim_customers GD ON Ss.sls_cust_id=  GD.customer_id 
-  left join
-  GOLD.dim_product GP ON Ss.sls_prd_key=  GP.product_num
 
 
